@@ -1,6 +1,6 @@
 "use client";
 
-import { Task } from "@/lib/types";
+import { Task } from "../lib/types";
 
 const PRIO_CLASS: Record<string, string> = {
   High: "prio-high",

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect } from "react";
-import { useShelby } from "@/providers/ShelbyProvider";
-import { ShelbyFile } from "@/lib/types";
+import { useShelby } from "../providers/ShelbyProvider";
+import { ShelbyFile } from "../lib/types";
 
 export default function StoragePanel() {
   const { files, fetchFiles, download, isConnected } = useShelby();

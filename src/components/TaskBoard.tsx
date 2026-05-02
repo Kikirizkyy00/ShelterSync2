@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useTasks } from "@/hooks/useTasks";
-import { Status, Task } from "@/lib/types";
+import { useTasks } from "../hooks/useTasks";
+import { Status, Task } from "../lib/types";
 import TaskCard from "./TaskCard";
 import AddTaskModal from "./AddTaskModal";
 import UploadModal from "./UploadModal";

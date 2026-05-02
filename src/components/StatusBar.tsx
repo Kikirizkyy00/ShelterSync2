@@ -1,7 +1,7 @@
 "use client";
 
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
-import { useShelby } from "@/providers/ShelbyProvider";
+import { useShelby } from "../providers/ShelbyProvider";
 
 export default function StatusBar() {
   const { connect, disconnect, connected, account, wallets } = useWallet();
@@ -32,7 +32,7 @@ export default function StatusBar() {
       </div>
       <div className="bar-right">
         {connected && account && (
-          <span className="wallet-chip">{short(account.address)}</span>
+          <span className="wallet-chip">{short(account.address.toString())}</span>
         )}
         {connected ? (
           <button className="btn btn-danger" onClick={disconnect}>Disconnect</button>

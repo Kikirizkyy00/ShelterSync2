@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Status, Priority, Task } from "@/lib/types";
+import { Status, Priority, Task } from "../lib/types";
 
 export default function AddTaskModal({
   defaultStatus, onSave, onClose,

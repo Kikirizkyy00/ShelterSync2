@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
-import { useShelby } from "@/providers/ShelbyProvider";
+import { useShelby } from "../providers/ShelbyProvider";
 
 const STEPS = [
   "Encoding file with erasure coding",
@@ -28,13 +28,20 @@ export default function UploadModal({
   const handleUpload = async () => {
     if (!isConnected) { setError("Please connect your Aptos wallet first."); return; }
     if (!file) { setError("Please select a file first."); return; }
+    
     setError("");
     try {
       await upload({ file, taskId, taskTitle });
       setSuccess(true);
       setTimeout(onClose, 1500);
     } catch (err: any) {
-      setError(err.message || "Upload failed. Please try again.");
+      // FIX: Handle User Rejection without crashing the UI
+      if (err.message?.includes("rejected") || err.name === "WalletSignTransactionError") {
+        setError("Transaction cancelled. You must approve the request in your wallet to upload.");
+      } else {
+        setError(err.message || "Upload failed. Please try again.");
+      }
+      console.error("Upload Error:", err);
     }
   };
 
@@ -60,7 +67,7 @@ export default function UploadModal({
 
         <div className="form-group">
           <label className="label">Select file</label>
-          <div className="dropzone" onClick={() => inputRef.current?.click()}>
+          <div className="dropzone" onClick={() => !uploading && inputRef.current?.click()}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style={{ margin: "0 auto", display: "block" }}>
               <path d="M12 15V4m0 0l-4 4m4-4l4 4" stroke="#534AB7" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               <path d="M3 15v3a2 2 0 002 2h14a2 2 0 002-2v-3" stroke="#534AB7" strokeWidth="1.5" strokeLinecap="round" />
@@ -79,7 +86,7 @@ export default function UploadModal({
         </div>
 
         {uploading && (
-          <div>
+          <div style={{ marginTop: 20 }}>
             <div className="progress-track">
               <div className="progress-fill" style={{ width: `${pct}%` }} />
             </div>

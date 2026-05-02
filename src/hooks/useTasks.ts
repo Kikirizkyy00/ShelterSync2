@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Task, Status } from "@/lib/types";
+import { Task, Status } from "../lib/types";
 
 const INITIAL_TASKS: Task[] = [
   { id: 1, title: "Design dashboard layout", tag: "UI/UX", priority: "High", dueDate: "2026-04-10", assignee: "AK", status: "todo" },
